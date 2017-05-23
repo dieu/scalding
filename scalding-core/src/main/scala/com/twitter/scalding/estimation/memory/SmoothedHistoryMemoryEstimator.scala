@@ -85,8 +85,8 @@ trait SmoothedHistoryMemoryEstimator extends HistoryEstimator[MemoryEstimate] {
 
   private def historyMemory(history: FlowStepHistory): (Option[Long], Option[Long]) = {
     LOG.debug(s"Processing tasks: ${history.tasks}")
-    val reduceTasks: Seq[Task] = history.tasks.filter { t => t.taskType.contains("REDUCE") }
-    val mapTasks: Seq[Task] = history.tasks.filter { t => t.taskType.contains("MAP") }
+    val reduceTasks: Seq[Task] = history.tasks.filter { t => t.taskType.toList.contains("REDUCE") }
+    val mapTasks: Seq[Task] = history.tasks.filter { t => t.taskType.toList.contains("MAP") }
 
     // handle empty task list due to either no task history / lack of reducers
     val maxReduceCommittedHeap: Option[Long] =
